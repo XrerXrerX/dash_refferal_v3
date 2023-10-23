@@ -45,7 +45,7 @@
             formData.append('_token', csrfToken);
 
             $.ajax({
-                url: "/linksshorten/store",
+                url: "/xx88/linksshorten/store",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -71,11 +71,11 @@
                         }).then(function() {
 
                             // Lakukan perubahan halaman atau tindakan lainnya setelah contact berhasil dikirim
-                            $('.aplay_code').load('/linksshorten',
+                            $('.aplay_code').load('/xx88/linksshorten',
                                 function() {
                                     adjustElementSize();
                                     localStorage.setItem('lastPage',
-                                        '/linksshorten');
+                                        '/xx88/linksshorten');
                                 });
                         });
                     }
@@ -96,9 +96,9 @@
         $(document).off('click', '#cancel').on('click', '#cancel', function(event) {
             event.preventDefault();
             var namabo = $(this).data('namabo');
-            $('.aplay_code').load('/linksshorten', function() {
+            $('.aplay_code').load('/xx88/linksshorten', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/linksshorten');
+                localStorage.setItem('lastPage', '/xx88/linksshorten');
             });
         });
 

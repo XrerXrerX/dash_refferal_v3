@@ -6,6 +6,9 @@ use App\Models\DataPopup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
+
 
 class DataPopupController extends Controller
 {
@@ -128,16 +131,59 @@ class DataPopupController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    // public function update(Request $request)
+    // {
+    //     $id = $request->id;
+    //     foreach ($id as $index => $idx) {
+    //         $validator = Validator::make($request->all(), [
+    //             'judul_event.*' => 'required',
+    //             'desk_event.*' => 'required',
+    //             'gambar_event.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    //             'switch_desk.*' => 'required'
+
+    //         ]);
+
+    //         if ($validator->fails()) {
+    //             return response()->json(['errors' => $validator->errors()->all()]);
+    //         } else {
+    //             try {
+    //                 $result = DataPopup::find($idx);
+    //                 $result->judul_event = $request->judul_event[$index];
+    //                 $result->desk_event = $request->desk_event[$index];
+
+    //                 if ($request->hasFile('gambar_event') && $request->file('gambar_event')[$index]->isValid()) {
+    //                     if ($result->gambar_event) {
+    //                         Storage::disk('public')->delete($result->gambar_event);
+    //                     }
+
+    //                     $gambar_event = $request->file('gambar_event')[$index];
+    //                     $gambar_eventPath = $gambar_event->store('public/images/Datapopup_img');
+    //                     $gambar_eventPath = str_replace('public/', '', $gambar_eventPath);
+    //                     $result->gambar_event = $gambar_eventPath;
+    //                 }
+    //                 $result->switch_desk = isset($request->switch_desk[$index]) ? 1 : 0;
+
+    //                 $result->save();
+    //             } catch (\Exception $e) {
+    //                 echo "Pesan error: " . $e->getMessage();
+    //                 die;
+    //                 return response()->json(['errors' => ['Terjadi kesalahan saat menyimpan data.']]);
+    //             }
+    //         }
+    //     }
+    //     return response()->json(['success' => 'Item berhasil diupdate!']);
+    // }
+
     public function update(Request $request)
     {
         $id = $request->id;
+
         foreach ($id as $index => $idx) {
             $validator = Validator::make($request->all(), [
                 'judul_event.*' => 'required',
-                'desk_event.*' => 'required',
+                'desk_event.*' => 'nullable',
                 'gambar_event.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
                 'switch_desk.*' => 'required'
-
             ]);
 
             if ($validator->fails()) {
@@ -146,30 +192,34 @@ class DataPopupController extends Controller
                 try {
                     $result = DataPopup::find($idx);
                     $result->judul_event = $request->judul_event[$index];
-                    $result->desk_event = $request->desk_event[$index];
+                    $result->desk_event = $request->desk_event[$index] == null ? '' : $request->desk_event[$index];
 
                     if ($request->hasFile('gambar_event') && $request->file('gambar_event')[$index]->isValid()) {
                         if ($result->gambar_event) {
-                            Storage::disk('public')->delete($result->gambar_event);
+                            $pathToFile = $result->gambar_event;
+                            if (file_exists($pathToFile)) {
+                                unlink($pathToFile);
+                            }
                         }
-
                         $gambar_event = $request->file('gambar_event')[$index];
-                        $gambar_eventPath = $gambar_event->store('public/Datapopup_img');
-                        $gambar_eventPath = str_replace('public/', '', $gambar_eventPath);
-                        $result->gambar_event = $gambar_eventPath;
+                        $filename = time() . '_' . Str::random(10) . '.' . $gambar_event->getClientOriginalExtension();
+                        $gambar_event->move('images/Datapopup_img', $filename);
+                        $result->gambar_event = 'images/Datapopup_img/' . $filename;
                     }
-                    $result->switch_desk = isset($request->switch_desk[$index]) ? 1 : 0;
+
+                    $result->switch_desk = isset($request->switch_desk[$index]) && $request->switch_desk[$index] != '0' ? '1' : '0';
 
                     $result->save();
                 } catch (\Exception $e) {
-                    echo "Pesan error: " . $e->getMessage();
-                    die;
+                    dd($e->getMessage());
                     return response()->json(['errors' => ['Terjadi kesalahan saat menyimpan data.']]);
                 }
             }
         }
+
         return response()->json(['success' => 'Item berhasil diupdate!']);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -183,7 +233,7 @@ class DataPopupController extends Controller
         }
 
         foreach ($ids as $id) {
-            $DataPopup = DataPopup::findOrFail($id);
+            $DataPopup = DataPopup::findOrFail($id);\
             $DataPopup->delete();
         }
 

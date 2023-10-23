@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://lotto21top.net'),
+    'url' => env('APP_URL', 'https://promol21.com/'),
 
     'asset_url' => env('ASSET_URL'),
 

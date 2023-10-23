@@ -6,6 +6,7 @@ use App\Models\TabelNewmember;
 use App\Models\UserRefferal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class TabelNewmemberController extends Controller
 {
@@ -53,12 +54,18 @@ class TabelNewmemberController extends Controller
             'userid_downline' => 'required',
             'status' => 'string',
             'tanggal' => 'required',
+            'website' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         } else {
             try {
                 $data = $request->all();
+                $tanggal = $request["tanggal"];
+                $userid = $request["userid"];
+                $website = $request["website"];
+                $query = "DELETE FROM tabel_newmember WHERE userid = '$userid' AND website = '$website'";
+                DB::delete($query);
                 if ($data["jenis_input"] == "2") {
                     $arrayData = explode("\n", $data["userid_downline"]);
                     $datadownline_part1 = [];
@@ -79,7 +86,8 @@ class TabelNewmemberController extends Controller
                             "userid" => $data["userid"],
                             "userid_downline" => $downline_pt1,
                             "status" => $datadownline_part2[$index],
-                            "tanggal" => $data["tanggal"]
+                            "tanggal" => $data["tanggal"],
+                            "website" => $data["website"]
                         ];
 
                         TabelNewmember::create($newdata);
@@ -89,13 +97,14 @@ class TabelNewmemberController extends Controller
                     ]);
                 } else {
                     $data["status"] = isset($data["status"]) ? "sudah depo" : "belum depo";
-
+                    unset($data['jenis_input']);
                     TabelNewmember::create($data);
                     return response()->json([
                         'message' => 'Data berhasil disimpan.',
                     ]);
                 }
             } catch (\Exception $e) {
+                dd($e->getMessage());
                 return response()->json(['errors' => ['Terjadi kesalahan saat menyimpan data.']]);
             }
         }
@@ -183,12 +192,14 @@ class TabelNewmemberController extends Controller
         $data['status'] = array_values(array_filter($data['status'], function ($item) {
             return $item !== 'on';
         }));
+
         foreach ($id as $index => $idx) {
             $validator = Validator::make($data, [
                 'userid.*' => 'required',
                 'userid_downline.*' => 'required',
                 'status.*' => 'string',
-                'tanggal.*' => 'required'
+                'tanggal.*' => 'required',
+                'website.*' => 'required'
             ]);
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()->all()]);
@@ -197,8 +208,9 @@ class TabelNewmemberController extends Controller
                     $result = TabelNewmember::find($idx);
                     $result->userid = $request->userid[$index];
                     $result->userid_downline = $request->userid_downline[$index];
-                    $result->status = isset($request->userid[$index]) ? "sudah depo" : "belum depo";
+                    $result->status = isset($request->status[$index]) && $request->status[$index] != '0' ? "sudah depo" : "belum depo";
                     $result->tanggal = $request->tanggal[$index];
+                    $result->website = $request->website[$index];
                     $result->save();
                 } catch (\Exception $e) {
                     $errorMessage = $e->getMessage();
@@ -227,6 +239,12 @@ class TabelNewmemberController extends Controller
             $TabelNewmember->delete();
         }
 
+        return response()->json(['success' => 'Data berhasil dihapus!']);
+    }
+
+    public function destroyall(Request $request)
+    {
+        TabelNewmember::truncate();
         return response()->json(['success' => 'Data berhasil dihapus!']);
     }
 }

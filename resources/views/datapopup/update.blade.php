@@ -27,7 +27,8 @@
                 <div class="list_form">
                     <span class="sec_label">Switch Desk</span>
                     <div class="sec_togle">
-                        <input type="checkbox" id="switch_desk" name="switch_desk[]" checked {{ $disabled }}>
+                        <input type="checkbox" id="switch_desk" name="switch_desk[]"
+                            {{ $item->switch_desk == 1 ? 'checked' : '' }}{{ $disabled }}>
                         <label for="switch_desk" class="sec_switch"></label>
                     </div>
                 </div>
@@ -53,7 +54,7 @@
             });
 
             $.ajax({
-                url: "/datapopup/update",
+                url: "/xx88/datapopup/update",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -74,11 +75,11 @@
                             showConfirmButton: false,
                             timer: 1500
                         }).then(function() {
-                            $('.aplay_code').load('/datapopup',
+                            $('.aplay_code').load('/xx88/datapopup',
                                 function() {
                                     adjustElementSize();
                                     localStorage.setItem('lastPage',
-                                        '/datapopup');
+                                        '/xx88/datapopup');
                                 });
                         });
                     }
@@ -98,9 +99,9 @@
         $(document).off('click', '#cancel').on('click', '#cancel', function(event) {
             event.preventDefault();
             var namabo = $(this).data('namabo');
-            $('.aplay_code').load('/datapopup', function() {
+            $('.aplay_code').load('/xx88/datapopup', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/datapopup');
+                localStorage.setItem('lastPage', '/xx88/datapopup');
             });
         });
     });

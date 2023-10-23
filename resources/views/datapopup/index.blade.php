@@ -15,8 +15,14 @@
         </div>
     </a> --}}
     <a href="#" id="update-datapopup">
-        <div class="sec_addnew">
-            <button class="sec_botton btn_primary">EDIT</button>
+        <div class="sec_edit">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" viewBox="0 0 24 24"
+                stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+                <path d="M13.5 6.5l4 4" />
+            </svg>
+            <span>EDIT</span>
         </div>
     </a>
     {{-- <a href="#" id="delete-datapopup">
@@ -30,6 +36,7 @@
                 <th class="check_box">
                     <input type="checkbox" id="myCheckbox" name="myCheckbox">
                 </th>
+                <th>No. </th>
                 <th>Judul Event</th>
                 <th>Deskripsi Event</th>
                 <th>Gambar Event</th>
@@ -86,19 +93,35 @@
                         <input type="text" placeholder="Cari data..." id="searchData-name">
                     </div>
                 </td>
+                <td>
+                    <div class="grubsearchtable">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
+                            viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                            <path d="M21 21l-6 -6"></path>
+                        </svg>
+                        <input type="text" placeholder="Cari data..." id="searchData-name">
+                    </div>
+                </td>
                 <td></td>
             </tr>
+            @php
+                $nomor = 1;
+            @endphp
             @foreach ($data as $index => $d)
                 <tr>
                     <td class="check_box">
-                        <input type="checkbox" id="myCheckbox-{{ $index }}" name="myCheckbox-{{ $index }}"
-                            data-id=" {{ $d->id }}">
+                        <input type="checkbox" id="myCheckbox-{{ $index }}"
+                            name="myCheckbox-{{ $index }}" data-id=" {{ $d->id }}">
                     </td>
+                    <td><span class="name">{{ $nomor }}</span></td>
                     <td><span class="name">{{ $d->judul_event }}</span></td>
                     <td><span class="name">{{ $d->desk_event }}</span></td>
                     <td class="show_img_tbl">
                         <span class="td_img_show gambar">{{ substr($d->gambar_event, 0, 8) }} ...</span>
-                        <img class="table_img" src="{{ asset('storage/' . $d->gambar_event) }}" alt=""
+                        <img class="table_img" src="{{ asset($d->gambar_event) }}" alt=""
                             style="display: none;">
                     </td>
                     <td><span class="name">{{ $d->switch_desk == '1' ? 'ON' : 'OFF' }}</span></td>
@@ -158,6 +181,9 @@
                         </div>
                     </td>
                 </tr>
+                @php
+                    $nomor = 1;
+                @endphp
             @endforeach
         </tbody>
     </table>
@@ -171,8 +197,8 @@
             // Mendapatkan status ceklis checkbox myCheckbox
             var isChecked = $(this).is(':checked');
 
-            // Mengatur status ceklis untuk checkbox myCheckbox-{{ $index }}
-            $('[id^="myCheckbox-"]').prop('checked', isChecked);
+
+            $('tbody tr:not([style="display: none;"]) [id^="myCheckbox-"]').prop('checked', isChecked);
         });
     });
 
@@ -204,7 +230,7 @@
             if (checkedValues == 0) {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Silahkan pilih website!',
+                    title: 'Silahkan pilih Data!',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -215,9 +241,9 @@
                 'values[]': checkedValues
             }, true);
             console.log(parameterString);
-            $('.aplay_code').load('/datapopup/edit/' + parameterString, function() {
+            $('.aplay_code').load('/xx88/datapopup/edit/' + parameterString, function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/datapopup/edit/' +
+                localStorage.setItem('lastPage', '/xx88/datapopup/edit/' +
                     parameterString);
             });
         });
@@ -225,16 +251,16 @@
 
         $(document).off('click', '#add-datapopup').on('click', '#add-datapopup', function(event) {
             event.preventDefault();
-            $('.aplay_code').load('/datapopup/add', function() {
+            $('.aplay_code').load('/xx88/datapopup/add', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/datapopup/add');
+                localStorage.setItem('lastPage', '/xx88/datapopup/add');
             });
         });
         // $(document).on('click', '#delete', function(event) {
         //     event.preventDefault();
-        //     $('.aplay_code').load('/datapopup/delete', function() {
+        //     $('.aplay_code').load('/xx88/datapopup/delete', function() {
         //         adjustElementSize();
-        //         localStorage.setItem('lastPage', '/datapopup/delete');
+        //         localStorage.setItem('lastPage', '/xx88/datapopup/delete');
         //     });
         // })
 
@@ -263,7 +289,7 @@
                 'values[]': checkedValues
             }, true);
             var url =
-                "/datapopup/delete/"; // Ubah URL sesuai dengan endpoint delete yang sesuai
+                "/xx88/datapopup/delete/"; // Ubah URL sesuai dengan endpoint delete yang sesuai
 
             Swal.fire({
                 title: 'Apakah Anda yakin ingin menghapus data ini?',
@@ -293,11 +319,11 @@
                             }).then(function() {
                                 // Lakukan perubahan halaman atau tindakan lainnya setelah data berhasil dihapus
                                 $('.aplay_code').load(
-                                    '/datapopup',
+                                    '/xx88/datapopup',
                                     function() {
                                         adjustElementSize();
                                         localStorage.setItem('lastPage',
-                                            '/datapopup');
+                                            '/xx88/datapopup');
                                     });
                             });
                         },
@@ -319,9 +345,9 @@
             event.preventDefault();
             var id = $(this).data('id');
             $('.aplay_code').empty();
-            $('.aplay_code').load('/datapopup/view/' + id, function() {
+            $('.aplay_code').load('/xx88/datapopup/view/' + id, function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/datapopup/view/' + id);
+                localStorage.setItem('lastPage', '/xx88/datapopup/view/' + id);
             });
         });
 
@@ -330,9 +356,9 @@
             event.preventDefault();
             var id = $(this).data('id');
             $('.aplay_code').empty();
-            $('.aplay_code').load('/datapopup/edit/' + id, function() {
+            $('.aplay_code').load('/xx88/datapopup/edit/' + id, function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/datapopup/edit/' + id);
+                localStorage.setItem('lastPage', '/xx88/datapopup/edit/' + id);
             });
         });
 
@@ -341,7 +367,7 @@
 
             var id = $(this).data('id');
             var url =
-                "/datapopup/delete/"; // Ubah URL sesuai dengan endpoint delete yang sesuai
+                "/xx88/datapopup/delete/"; // Ubah URL sesuai dengan endpoint delete yang sesuai
 
             Swal.fire({
                 title: 'Apakah Anda yakin ingin menghapus data ini?',
@@ -371,11 +397,11 @@
                             }).then(function() {
                                 // Lakukan perubahan halaman atau tindakan lainnya setelah data berhasil dihapus
                                 $('.aplay_code').load(
-                                    '/datapopup',
+                                    '/xx88/datapopup',
                                     function() {
                                         adjustElementSize();
                                         localStorage.setItem('lastPage',
-                                            '/datapopup');
+                                            '/xx88/datapopup');
                                     });
                             });
                         },

@@ -53,7 +53,7 @@
             formData.append('_token', csrfToken);
 
             $.ajax({
-                url: "/gajirefferal/store",
+                url: "/xx88/gajirefferal/store",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -79,11 +79,11 @@
                         }).then(function() {
 
                             // Lakukan perubahan halaman atau tindakan lainnya setelah contact berhasil dikirim
-                            $('.aplay_code').load('/gajirefferal',
+                            $('.aplay_code').load('/xx88/gajirefferal',
                                 function() {
                                     adjustElementSize();
                                     localStorage.setItem('lastPage',
-                                        '/gajirefferal');
+                                        '/xx88/gajirefferal');
                                 });
                         });
                     }
@@ -104,9 +104,9 @@
         $(document).off('click', '#cancel').on('click', '#cancel', function(event) {
             event.preventDefault();
             var namabo = $(this).data('namabo');
-            $('.aplay_code').load('/gajirefferal', function() {
+            $('.aplay_code').load('/xx88/gajirefferal', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/gajirefferal');
+                localStorage.setItem('lastPage', '/xx88/gajirefferal');
             });
         });
 

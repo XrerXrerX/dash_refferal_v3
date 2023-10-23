@@ -51,7 +51,7 @@
             });
 
             $.ajax({
-                url: "/gajirefferal/update",
+                url: "/xx88/gajirefferal/update",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -72,11 +72,11 @@
                             showConfirmButton: false,
                             timer: 1500
                         }).then(function() {
-                            $('.aplay_code').load('/gajirefferal',
+                            $('.aplay_code').load('/xx88/gajirefferal',
                                 function() {
                                     adjustElementSize();
                                     localStorage.setItem('lastPage',
-                                        '/gajirefferal');
+                                        '/xx88/gajirefferal');
                                 });
                         });
                     }
@@ -96,9 +96,9 @@
         $(document).off('click', '#cancel').on('click', '#cancel', function(event) {
             event.preventDefault();
             var namabo = $(this).data('namabo');
-            $('.aplay_code').load('/gajirefferal', function() {
+            $('.aplay_code').load('/xx88/gajirefferal', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/gajirefferal');
+                localStorage.setItem('lastPage', '/xx88/gajirefferal');
             });
         });
     });

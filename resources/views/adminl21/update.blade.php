@@ -40,7 +40,7 @@
             });
 
             $.ajax({
-                url: "/adminl21/update",
+                url: "/xx88/adminl21/update",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -61,11 +61,11 @@
                             showConfirmButton: false,
                             timer: 1500
                         }).then(function() {
-                            $('.aplay_code').load('/adminl21',
+                            $('.aplay_code').load('/xx88/adminl21',
                                 function() {
                                     adjustElementSize();
                                     localStorage.setItem('lastPage',
-                                        '/adminl21');
+                                        '/xx88/adminl21');
                                 });
                         });
                     }
@@ -85,9 +85,9 @@
         $(document).off('click', '#cancel').on('click', '#cancel', function(event) {
             event.preventDefault();
             var namabo = $(this).data('namabo');
-            $('.aplay_code').load('/adminl21', function() {
+            $('.aplay_code').load('/xx88/adminl21', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/adminl21');
+                localStorage.setItem('lastPage', '/xx88/adminl21');
             });
         });
     });

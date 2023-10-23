@@ -46,7 +46,7 @@
             });
 
             $.ajax({
-                url: "/tabeldownline/update",
+                url: "/xx88/linksshorten/update",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -67,11 +67,11 @@
                             showConfirmButton: false,
                             timer: 1500
                         }).then(function() {
-                            $('.aplay_code').load('/tabeldownline',
+                            $('.aplay_code').load('/xx88/linksshorten',
                                 function() {
                                     adjustElementSize();
                                     localStorage.setItem('lastPage',
-                                        '/tabeldownline');
+                                        '/xx88/linksshorten');
                                 });
                         });
                     }
@@ -91,9 +91,9 @@
         $(document).off('click', '#cancel').on('click', '#cancel', function(event) {
             event.preventDefault();
             var namabo = $(this).data('namabo');
-            $('.aplay_code').load('/tabeldownline', function() {
+            $('.aplay_code').load('/xx88/linksshorten', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/tabeldownline');
+                localStorage.setItem('lastPage', '/xx88/linksshorten');
             });
         });
     });

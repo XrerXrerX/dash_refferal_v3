@@ -135,96 +135,111 @@ $(document).on('click', '#Medianews', function(event) {
 /* ========================= Data ======================== */
 $(document).on('click', '#Pencarirefferal', function(event) {
     event.preventDefault();
-    $('.aplay_code').load('/pencarirefferal', function() {
+    $('.aplay_code').load('/xx88/pencarirefferal', function() {
         adjustElementSize();
-        localStorage.setItem('lastPage', '/pencarireffral');
+        localStorage.setItem('lastPage', '/xx88/pencarireffral');
     });
 });
 $(document).on('click', '#Linksshorten', function(event) {
     event.preventDefault();
-    $('.aplay_code').load('/linksshorten', function() {
+    $('.aplay_code').load('/xx88/linksshorten', function() {
         adjustElementSize();
-        localStorage.setItem('lastPage', '/linksshorten');
+        localStorage.setItem('lastPage', '/xx88/linksshorten');
     });
 });
 $(document).on('click', '#Syaratketentuan', function(event) {
     event.preventDefault();
-    $('.aplay_code').load('/syaratketentuan', function() {
+    $('.aplay_code').load('/xx88/syaratketentuan', function() {
         adjustElementSize();
-        localStorage.setItem('lastPage', '/syaratketentuan');
+        localStorage.setItem('lastPage', '/xx88/syaratketentuan');
     });
 });
 $(document).on('click', '#Adminl21', function(event) {
     event.preventDefault();
-    $('.aplay_code').load('/adminl21', function() {
+    $('.aplay_code').load('/xx88/adminl21', function() {
         adjustElementSize();
-        localStorage.setItem('lastPage', '/adminl21');
+        localStorage.setItem('lastPage', '/xx88/adminl21');
     });
 });
 
 $(document).on('click', '#Inputdata', function(event) {
     event.preventDefault();
-    $('.aplay_code').load('/gajirefferal', function() {
+    $('.aplay_code').load('/xx88/gajirefferal', function() {
         adjustElementSize();
-        localStorage.setItem('lastPage', '/gajirefferal');
+        localStorage.setItem('lastPage', '/xx88/gajirefferal');
     });
 });
 
 $(document).on('click', '#Tabelgaji', function(event) {
     event.preventDefault();
-    $('.aplay_code').load('/gajirefferal', function() {
+    $('.aplay_code').load('/xx88/gajirefferal', function() {
         adjustElementSize();
-        localStorage.setItem('lastPage', '/gajirefferal');
+        localStorage.setItem('lastPage', '/xx88/gajirefferal');
     });
 });
 
 $(document).on('click', '#Datakasbon', function(event) {
     event.preventDefault();
-    $('.aplay_code').load('/datakasbon', function() {
+    $('.aplay_code').load('/xx88/datakasbon', function() {
         adjustElementSize();
-        localStorage.setItem('lastPage', '/datakasbon');
+        localStorage.setItem('lastPage', '/xx88/datakasbon');
     });
 });
 
 $(document).on('click', '#Datamitra', function(event) {
     event.preventDefault();
-    $('.aplay_code').load('/userrefferal', function() {
+    $('.aplay_code').load('/xx88/userrefferal', function() {
         adjustElementSize();
-        localStorage.setItem('lastPage', '/userrefferal');
+        localStorage.setItem('lastPage', '/xx88/userrefferal');
     });
 });
 
 $(document).on('click', '#Datapopup', function(event) {
     event.preventDefault();
-    $('.aplay_code').load('/datapopup', function() {
+    $('.aplay_code').load('/xx88/datapopup', function() {
         adjustElementSize();
-        localStorage.setItem('lastPage', '/datapopup');
+        localStorage.setItem('lastPage', '/xx88/datapopup');
     });
 });
 
 $(document).on('click', '#Downline', function(event) {
     event.preventDefault();
-    $('.aplay_code').load('/tabeldownline', function() {
+    $('.aplay_code').load('/xx88/tabeldownline', function() {
         adjustElementSize();
-        localStorage.setItem('lastPage', '/tabeldownline');
+        localStorage.setItem('lastPage', '/xx88/tabeldownline');
     });
 });
 
 $(document).on('click', '#Newmember', function(event) {
     event.preventDefault();
-    $('.aplay_code').load('/tabelnewmember', function() {
+    $('.aplay_code').load('/xx88/tabelnewmember', function() {
         adjustElementSize();
-        localStorage.setItem('lastPage', '/tabelnewmember');
+        localStorage.setItem('lastPage', '/xx88/tabelnewmember');
     });
 });
 
 $(document).on('click', '#Laporan', function(event) {
     event.preventDefault();
-    $('.aplay_code').load('/laporan', function() {
+    $('.aplay_code').load('/xx88/laporan', function() {
         adjustElementSize();
-        localStorage.setItem('lastPage', '/laporan');
+        localStorage.setItem('lastPage', '/xx88/laporan');
     });
 });
 
+$(document).on('click', '#Allowedip', function(event) {
+    event.preventDefault();
+    $('.aplay_code').load('/xx88/allowedip', function() {
+        adjustElementSize();
+        localStorage.setItem('lastPage', '/xx88/allowedip');
+    });
+});
+
+$(document).on('click', '#Usermanagement', function(event) {
+    event.preventDefault();
+    $('.aplay_code').load('/xx88/user', function() {
+        adjustElementSize();
+        localStorage.setItem('lastPage', '/xx88/user');
+    });
+});
 
 

@@ -2,34 +2,57 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/themes/prism.css">
 <div class="sec_table">
     <h2>{{ $title }}</h2>
-    <a href="#" id="add-linksshorten">
-        <div class="sec_addnew">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-plus" viewBox="0 0 24 24"
-                stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
-                <path d="M9 12l6 0"></path>
-                <path d="M12 9l0 6"></path>
-            </svg>
-            <span>Add New</span>
+    <div class="group_button_ns">
+        <a href="#" id="add-linksshorten">
+            <div class="sec_addnew">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-plus"
+                    viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+                    <path d="M9 12l6 0"></path>
+                    <path d="M12 9l0 6"></path>
+                </svg>
+                <span>Add New</span>
+            </div>
+        </a>
+        <div class="ns_right">
+            <a href="#" id="update-linksshorten">
+                <div class="sec_edit">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil"
+                        viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+                        <path d="M13.5 6.5l4 4" />
+                    </svg>
+                    <span>EDIT</span>
+                </div>
+            </a>
+            <a href="#" id="delete-linksshorten">
+                <div class="sec_delete">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash"
+                        viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 7l16 0" />
+                        <path d="M10 11l0 6" />
+                        <path d="M14 11l0 6" />
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                    </svg>
+                    <span>DELETE</span>
+                </div>
+            </a>
         </div>
-    </a>
-    <a href="#" id="update-linksshorten">
-        <div class="sec_addnew">
-            <button class="sec_botton btn_primary">EDIT</button>
-        </div>
-    </a>
-    <a href="#" id="delete-linksshorten">
-        <div class="sec_addnew">
-            <button class="sec_botton btn_danger">DELETE</button>
-        </div>
-    </a>
+    </div>
+
     <table>
         <tbody>
             <tr class="head_table">
                 <th class="check_box">
                     <input type="checkbox" id="myCheckbox" name="myCheckbox">
                 </th>
+                <th>No.</th>
                 <th>Username Shorten</th>
                 <th>Link Awal</th>
                 <th>Link Hasil</th>
@@ -73,15 +96,32 @@
                         <input type="text" placeholder="Cari data..." id="searchData-name">
                     </div>
                 </td>
+                <td>
+                    <div class="grubsearchtable">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
+                            viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                            <path d="M21 21l-6 -6"></path>
+                        </svg>
+                        <input type="text" placeholder="Cari data..." id="searchData-name">
+                    </div>
+                </td>
 
                 <td></td>
             </tr>
+            @php
+                $nomor = 1;
+            @endphp
             @foreach ($data as $index => $d)
                 <tr>
                     <td class="check_box">
-                        <input type="checkbox" id="myCheckbox-{{ $index }}" name="myCheckbox-{{ $index }}"
-                            data-id=" {{ $d->id }}">
+                        <input type="checkbox" id="myCheckbox-{{ $index }}"
+                            name="myCheckbox-{{ $index }}" data-id=" {{ $d->id }}">
                     </td>
+
+                    <td><span class="name">{{ $nomor }}</span></td>
                     <td><span class="name">{{ $d->username_shorten }}</span></td>
                     <td><span class="name">{{ $d->link_awal }}</span></td>
                     <td><span class="name">{{ $d->link_hasil }}</span></td>
@@ -141,6 +181,9 @@
                         </div>
                     </td>
                 </tr>
+                @php
+                    $nomor++;
+                @endphp
             @endforeach
         </tbody>
     </table>
@@ -154,8 +197,8 @@
             // Mendapatkan status ceklis checkbox myCheckbox
             var isChecked = $(this).is(':checked');
 
-            // Mengatur status ceklis untuk checkbox myCheckbox-{{ $index }}
-            $('[id^="myCheckbox-"]').prop('checked', isChecked);
+
+            $('tbody tr:not([style="display: none;"]) [id^="myCheckbox-"]').prop('checked', isChecked);
         });
     });
 
@@ -187,7 +230,7 @@
             if (checkedValues == 0) {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Silahkan pilih website!',
+                    title: 'Silahkan pilih Data!',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -198,9 +241,9 @@
                 'values[]': checkedValues
             }, true);
             console.log(parameterString);
-            $('.aplay_code').load('/linksshorten/edit/' + parameterString, function() {
+            $('.aplay_code').load('/xx88/linksshorten/edit/' + parameterString, function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/linksshorten/edit/' +
+                localStorage.setItem('lastPage', '/xx88/linksshorten/edit/' +
                     parameterString);
             });
         });
@@ -208,16 +251,16 @@
 
         $(document).off('click', '#add-linksshorten').on('click', '#add-linksshorten', function(event) {
             event.preventDefault();
-            $('.aplay_code').load('/linksshorten/add', function() {
+            $('.aplay_code').load('/xx88/linksshorten/add', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/linksshorten/add');
+                localStorage.setItem('lastPage', '/xx88/linksshorten/add');
             });
         });
         // $(document).on('click', '#delete', function(event) {
         //     event.preventDefault();
-        //     $('.aplay_code').load('/linksshorten/delete', function() {
+        //     $('.aplay_code').load('/xx88/linksshorten/delete', function() {
         //         adjustElementSize();
-        //         localStorage.setItem('lastPage', '/linksshorten/delete');
+        //         localStorage.setItem('lastPage', '/xx88/linksshorten/delete');
         //     });
         // })
 
@@ -246,7 +289,7 @@
                 'values[]': checkedValues
             }, true);
             var url =
-                "/linksshorten/delete/"; // Ubah URL sesuai dengan endpoint delete yang sesuai
+                "/xx88/linksshorten/delete/"; // Ubah URL sesuai dengan endpoint delete yang sesuai
 
             Swal.fire({
                 title: 'Apakah Anda yakin ingin menghapus data ini?',
@@ -276,11 +319,11 @@
                             }).then(function() {
                                 // Lakukan perubahan halaman atau tindakan lainnya setelah data berhasil dihapus
                                 $('.aplay_code').load(
-                                    '/linksshorten',
+                                    '/xx88/linksshorten',
                                     function() {
                                         adjustElementSize();
                                         localStorage.setItem('lastPage',
-                                            '/linksshorten');
+                                            '/xx88/linksshorten');
                                     });
                             });
                         },
@@ -302,9 +345,9 @@
             event.preventDefault();
             var id = $(this).data('id');
             $('.aplay_code').empty();
-            $('.aplay_code').load('/linksshorten/view/' + id, function() {
+            $('.aplay_code').load('/xx88/linksshorten/view/' + id, function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/linksshorten/view/' + id);
+                localStorage.setItem('lastPage', '/xx88/linksshorten/view/' + id);
             });
         });
 
@@ -313,9 +356,9 @@
             event.preventDefault();
             var id = $(this).data('id');
             $('.aplay_code').empty();
-            $('.aplay_code').load('/linksshorten/edit/' + id, function() {
+            $('.aplay_code').load('/xx88/linksshorten/edit/' + id, function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/linksshorten/edit/' + id);
+                localStorage.setItem('lastPage', '/xx88/linksshorten/edit/' + id);
             });
         });
 
@@ -324,7 +367,7 @@
 
             var id = $(this).data('id');
             var url =
-                "/linksshorten/delete/"; // Ubah URL sesuai dengan endpoint delete yang sesuai
+                "/xx88/linksshorten/delete/"; // Ubah URL sesuai dengan endpoint delete yang sesuai
 
             Swal.fire({
                 title: 'Apakah Anda yakin ingin menghapus data ini?',
@@ -354,11 +397,11 @@
                             }).then(function() {
                                 // Lakukan perubahan halaman atau tindakan lainnya setelah data berhasil dihapus
                                 $('.aplay_code').load(
-                                    '/linksshorten',
+                                    '/xx88/linksshorten',
                                     function() {
                                         adjustElementSize();
                                         localStorage.setItem('lastPage',
-                                            '/linksshorten');
+                                            '/xx88/linksshorten');
                                     });
                             });
                         },

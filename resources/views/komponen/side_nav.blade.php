@@ -210,78 +210,46 @@
 
         </div>
     </div>
-
     <div class="nav_group">
-        <span class="title_Nav">Component</span>
+        <span class="title_Nav">CONFIG</span>
         <div class="list_sidejsx">
             <div class="data_sidejsx">
-                <a href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-components"
-                        viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M3 12l3 3l3 -3l-3 -3z" />
-                        <path d="M15 12l3 3l3 -3l-3 -3z" />
-                        <path d="M9 6l3 3l3 -3l-3 -3z" />
-                        <path d="M9 18l3 3l3 -3l-3 -3z" />
+                <a href="#" id="Allowedip">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-analytics"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M3 4m0 1a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1z">
+                        </path>
+                        <path d="M7 20l10 0"></path>
+                        <path d="M9 16l0 4"></path>
+                        <path d="M15 16l0 4"></path>
+                        <path d="M8 12l3 -3l2 2l3 -3"></path>
                     </svg>
-                    <span class="nav_title1">Components</span>
-                    <div class="arrow_side">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right"
-                            viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l14 0" />
-                            <path d="M13 18l6 -6" />
-                            <path d="M13 6l6 6" />
-                        </svg>
-                    </div>
+                    <span class="nav_title1">Allowed IP</span>
                 </a>
             </div>
-            <div class="sub_data_sidejsx">
-                <a href="#" id="codeBoxLink">
-                    <div class="list_subdata">
-                        <div class="dotsub"></div>
-                        <span class="sub_title1">Code_Box</span>
-                    </div>
-                </a>
-                <a href="#" id="codeTableLink">
-                    <div class="list_subdata">
-                        <div class="dotsub"></div>
-                        <span class="sub_title1">Code_Tabel</span>
-                    </div>
-                </a>
-                <a href="#" id="codeFormLink">
-                    <div class="list_subdata">
-                        <div class="dotsub"></div>
-                        <span class="sub_title1">Code_Form</span>
-                    </div>
-                </a>
-                <a href="#" id="codeModalLink">
-                    <div class="list_subdata">
-                        <div class="dotsub"></div>
-                        <span class="sub_title1">Code_Modal</span>
-                    </div>
-                </a>
-                <a href="#" id="codeButtonLink">
-                    <div class="list_subdata">
-                        <div class="dotsub"></div>
-                        <span class="sub_title1">Code_Button</span>
-                    </div>
-                </a>
-                <a href="#" id="codeCardLink">
-                    <div class="list_subdata">
-                        <div class="dotsub"></div>
-                        <span class="sub_title1">Code_Card</span>
-                    </div>
-                </a>
-                <a href="#" id="codeOtherLink">
-                    <div class="list_subdata">
-                        <div class="dotsub"></div>
-                        <span class="sub_title1">Code_Other</span>
-                    </div>
+            <div class="data_sidejsx">
+                <a href="#" id="Usermanagement">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                            d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z">
+                        </path>
+                        <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                    </svg>
+                    <span class="nav_title1">User Management</span>
                 </a>
             </div>
+
         </div>
     </div>
+
 </div>
+<script>
+    $(document).ready(function() {
+        $('#Laporan').click();
+    });
+</script>

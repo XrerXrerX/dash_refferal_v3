@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataKasbon;
+use App\Models\UserRefferal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class DataKasbonController extends Controller
 {
     /**
+     * 
      * Display a listing of the resource.
      */
     public function index()
@@ -27,8 +29,10 @@ class DataKasbonController extends Controller
      */
     public function create()
     {
+        $useridreff = UserRefferal::orderBy('userid_refferal', 'asc')->pluck('userid_refferal');
         return view('datakasbon.create', [
-            'title' => 'Data Kasbon'
+            'title' => 'Data Kasbon',
+            'useridreff' => $useridreff
         ]);
     }
 
@@ -39,6 +43,7 @@ class DataKasbonController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'userid' => 'required',
+            'website' => 'required',
             'nominal' => 'required',
             'tanggal' => 'required'
         ]);
@@ -80,7 +85,7 @@ class DataKasbonController extends Controller
         $var2 = explode("values[]=", $var1);
         $var3 = array_slice($var2, 1);
         $var4 = str_replace(" ", "", $var3);
-
+        $useridreff = UserRefferal::orderBy('userid_refferal', 'asc')->pluck('userid_refferal');
         if (!empty($var4)) {
             $id = $var4;
             foreach ($id as $index => $ids) {
@@ -89,11 +94,12 @@ class DataKasbonController extends Controller
         } else {
             $datakasbon = [DataKasbon::where('id', $id)->first()];
         }
-
+        // dd($datakasbon);
         return view('datakasbon.update', [
             'title' => 'Data Kasbon',
             'data' => $datakasbon,
-            'disabled' => ''
+            'disabled' => '',
+            'useridreff' => $useridreff
         ]);
     }
 
@@ -112,11 +118,12 @@ class DataKasbonController extends Controller
         } else {
             $datakasbon = [DataKasbon::where('id', $id)->first()];
         }
-
+        $useridreff = UserRefferal::orderBy('userid_refferal', 'asc')->pluck('userid_refferal');
         return view('datakasbon.update', [
             'title' => 'Data Kasbon',
             'data' => $datakasbon,
-            'disabled' => 'disabled'
+            'disabled' => 'disabled',
+            'useridreff' => $useridreff
         ]);
     }
 
@@ -135,8 +142,8 @@ class DataKasbonController extends Controller
         $id = $request->id;
         foreach ($id as $index => $idx) {
             $validator = Validator::make($request->all(), [
-                '
-                .*' => 'required',
+                'userid.*' => 'required',
+                'website.*' => 'required',
                 'nominal.*' => 'required',
                 'tanggal.*' => 'required',
             ]);
@@ -150,6 +157,7 @@ class DataKasbonController extends Controller
 
                     $result = DataKasbon::find($idx);
                     $result->userid = $request->userid[$index];
+                    $result->website = $request->website[$index];
 
                     $result->nominal = $nominal;
 

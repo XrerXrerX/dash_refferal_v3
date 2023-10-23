@@ -9,6 +9,22 @@
             </div>
             <div class="list_form">
                 <span class="sec_label">Website</span>
+                <select id="website" name="website">
+                    <option value="arwanatoto">arwanatoto</option>
+                    <option value="duogaming">duogaming</option>
+                    <option value="jeeptoto">jeeptoto</option>
+                    <option value="tstoto">tstoto</option>
+                    <option value="doyantoto">doyantoto</option>
+                    <option value="arta4d">arta4d</option>
+                    <option value="neon4d">neon4d</option>
+                    <option value="zara4d">zara4d</option>
+                    <option value="roma4d">roma4d</option>
+                    <option value="nero4d">nero4d</option>
+                    <option value="toke4d">toke4d</option>
+                </select>
+            </div>
+            <div class="list_form">
+                <span class="sec_label">Status</span>
                 <select id="level_mitra" name="level_mitra">
                     <option value="0">Bodong</option>
                     <option value="1">Mitra</option>
@@ -17,14 +33,14 @@
             <div class="list_form">
                 <span class="sec_label">Userid</span>
                 <input type="text" id="userid" name="userid" placeholder="Masukkan Userid" required>
-                <select id="userid2" name="userid2" style="display:none">
-                    @foreach ($userrefferal as $index => $value)
-                        <option value="{{ $value->userid_refferal }}">{{ $value->userid_refferal }}</option>
-                    @endforeach
+                <select id="userid2" name="userid2" style="display: none">
+                    {{-- @foreach ($userid_refferal as $index => $value)
+                        <option value="{{ $value }}">{{ $value }}</option>
+                    @endforeach --}}
                 </select>
             </div>
             <div class="list_form">
-                <span class="sec_label">Refferal</span>
+                <span class="sec_label">Total Downline</span>
                 <input type="number" id="refferal" name="refferal" placeholder="0" value=0 placeholder="0">
             </div>
             <div class="list_form">
@@ -78,7 +94,7 @@
             formData.append('_token', csrfToken);
 
             $.ajax({
-                url: "/pencarirefferal/store",
+                url: "/xx88/pencarirefferal/store",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -104,11 +120,11 @@
                         }).then(function() {
 
                             // Lakukan perubahan halaman atau tindakan lainnya setelah contact berhasil dikirim
-                            $('.aplay_code').load('/pencarirefferal',
+                            $('.aplay_code').load('/xx88/pencarirefferal',
                                 function() {
                                     adjustElementSize();
                                     localStorage.setItem('lastPage',
-                                        '/pencarirefferal');
+                                        '/xx88/pencarirefferal');
                                 });
                         });
                     }
@@ -129,11 +145,51 @@
         $(document).off('click', '#cancel').on('click', '#cancel', function(event) {
             event.preventDefault();
             var namabo = $(this).data('namabo');
-            $('.aplay_code').load('/pencarirefferal', function() {
+            $('.aplay_code').load('/xx88/pencarirefferal', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/pencarirefferal');
+                localStorage.setItem('lastPage', '/xx88/pencarirefferal');
             });
         });
 
+        function getNamaMitra() {
+            var selectElement = document.getElementById("website");
+            var useridSelect = document.getElementById("userid2");
+
+            selectElement.addEventListener("change", function() {
+                var selectedValue = selectElement.value;
+                if (selectedValue == '') {
+                    selectedValue = 'arwanatoto';
+                }
+                fetchData(selectedValue, useridSelect);
+            });
+
+            fetchData(selectElement.value, useridSelect
+                .value);
+        }
+
+        function fetchData(value, useridSelect) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/xx88/pencarirefferal/datauserrefferal/" + value, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var responseData = JSON.parse(xhr.responseText);
+                    populateSelect(responseData, useridSelect);
+                }
+            };
+            xhr.send();
+        }
+
+        function populateSelect(dataArray, selectElement) {
+            selectElement.innerHTML = ""; // Hapus opsi sebelumnya
+
+            dataArray.forEach(function(item) {
+                var option = document.createElement("option");
+                option.value = item.userid_refferal;
+                option.textContent = item.userid_refferal;
+                selectElement.appendChild(option);
+            });
+        }
+
+        getNamaMitra();
     });
 </script>

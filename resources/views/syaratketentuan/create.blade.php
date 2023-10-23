@@ -48,7 +48,7 @@
             formData.append('_token', csrfToken);
 
             $.ajax({
-                url: "/syaratketentuan/store",
+                url: "/xx88/syaratketentuan/store",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -74,11 +74,11 @@
                         }).then(function() {
 
                             // Lakukan perubahan halaman atau tindakan lainnya setelah contact berhasil dikirim
-                            $('.aplay_code').load('/syaratketentuan',
+                            $('.aplay_code').load('/xx88/syaratketentuan',
                                 function() {
                                     adjustElementSize();
                                     localStorage.setItem('lastPage',
-                                        '/syaratketentuan');
+                                        '/xx88/syaratketentuan');
                                 });
                         });
                     }
@@ -99,9 +99,9 @@
         $(document).off('click', '#cancel').on('click', '#cancel', function(event) {
             event.preventDefault();
             var namabo = $(this).data('namabo');
-            $('.aplay_code').load('/syaratketentuan', function() {
+            $('.aplay_code').load('/xx88/syaratketentuan', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/syaratketentuan');
+                localStorage.setItem('lastPage', '/xx88/syaratketentuan');
             });
         });
 

@@ -35,13 +35,13 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class
         ],
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class
         ],
     ];
 
@@ -72,13 +72,7 @@ class Kernel extends HttpKernel
         'superadmin' =>  \App\Http\Middleware\superadmin::class,
         'spinner' =>  \App\Http\Middleware\spinner::class,
         'apk2' => \App\Http\Middleware\ApkMiddleware::class,
-
-
-
-
-
-
-
+        'allowedIP' => \App\Http\Middleware\CheckAllowedIPMiddleware::class,
 
     ];
 }

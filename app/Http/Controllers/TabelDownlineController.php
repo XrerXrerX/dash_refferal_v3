@@ -6,6 +6,8 @@ use App\Models\TabelDownline;
 use App\Models\UserRefferal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
 
 class TabelDownlineController extends Controller
 {
@@ -44,22 +46,38 @@ class TabelDownlineController extends Controller
             'userid_downline' => 'required',
             'bonus' => 'nullable',
             'tanggal' => 'required',
+            'website' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         } else {
             try {
                 $data = $request->all();
+
+                $tanggal = $data['tanggal'];
+                $userid = $data['userid'];
+                $website = $data['website'];
+
+                $query = "DELETE FROM tabel_downline WHERE userid = '$userid' AND website = '$website'";
+                DB::delete($query);
+
                 if ($data["jenis_input"] == "2") {
                     $datadownline = explode("\n", $data["userid_downline"]);
+
                     $datadownline_part1 = [];
                     $datadownline_part2 = [];
-
                     foreach ($datadownline as $index => $value) {
+
+                        if (strpos($value, "\t") === false) {
+                            return response()->json(['errors' => ['Terjadi kesalahan saat menyimpan data. (' . $value . ')']]);
+                        }
+
                         $explodetab = explode("\t", $value);
+
                         foreach ($explodetab as &$element) {
                             $element = str_replace("\r", "", $element);
                         }
+
                         $datadownline_part1[] = $explodetab[0];
                         $datadownline_part2[] = $explodetab[1];
                     }
@@ -70,7 +88,8 @@ class TabelDownlineController extends Controller
                             "userid" => $data["userid"],
                             "userid_downline" => $downline_pt1,
                             "bonus" => $datadownline_part2[$index],
-                            "tanggal" => $data["tanggal"]
+                            "tanggal" => $data["tanggal"],
+                            "website" => $data["website"]
                         ];
 
                         TabelDownline::create($newdata);
@@ -80,13 +99,15 @@ class TabelDownlineController extends Controller
                     ]);
                 } else {
                     $data["bonus"] = str_replace(',', '', $data["bonus"]);
-
+                    unset($data['jenis_input']);
                     TabelDownline::create($data);
                     return response()->json([
                         'message' => 'Data berhasil disimpan.',
                     ]);
                 }
             } catch (\Exception $e) {
+                echo "Terjadi kesalahan: " . $e->getMessage();
+                die;
                 return response()->json(['errors' => ['Terjadi kesalahan saat menyimpan data.']]);
             }
         }
@@ -175,7 +196,8 @@ class TabelDownlineController extends Controller
                 'userid.*' => 'required',
                 'userid_downline.*' => 'required',
                 'bonus.*' => 'required',
-                'tanggal.*' => 'required'
+                'tanggal.*' => 'required',
+                'website.*' => 'required',
             ]);
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()->all()]);
@@ -186,6 +208,7 @@ class TabelDownlineController extends Controller
                     $result->userid_downline = $request->userid_downline[$index];
                     $result->bonus = str_replace(',', '', $request->bonus[$index]);
                     $result->tanggal = $request->tanggal[$index];
+                    $result->website = $request->website[$index];
                     $result->save();
                 } catch (\Exception $e) {
                     $errorMessage = $e->getMessage();
@@ -204,7 +227,6 @@ class TabelDownlineController extends Controller
     public function destroy(Request $request)
     {
         $ids = $request->input('values');
-
         if (!is_array($ids)) {
             $ids = [$ids];
         }
@@ -214,6 +236,12 @@ class TabelDownlineController extends Controller
             $TabelDownline->delete();
         }
 
+        return response()->json(['success' => 'Data berhasil dihapus!']);
+    }
+
+    public function destroyall(Request $request)
+    {
+        TabelDownline::truncate();
         return response()->json(['success' => 'Data berhasil dihapus!']);
     }
 }

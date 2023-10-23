@@ -84,20 +84,22 @@
                 <div class="list_form">
                     <span class="sec_label">Background Page</span>
                     <div class="pilihan_gambar">
-                        <input type="file" id="bg_page" name="bg_page[]" {{ $disabled }}>
-                        <button type="button" class="img_gallery">Pilih Gallery</button>
+                        <input type="text" id="bg_page" name="bg_page[]" readonly required {{ $disabled }}
+                            value={{ $item->bg_page }}>
+                        <button type="button" class="img_gallery triggermodal" data-target="nilai-2">Pilih
+                            Gallery</button>
                     </div>
                 </div>
                 <div class="list_form">
                     <span class="sec_label">Website</span>
                     <select id="color_page" name="color_page[]" {{ $disabled }}>
-                        <option value="prfcto1" {{ $item->color_page == 'prfcto1' ? 'selected' : '' }}>prfcto1
+                        <option value="prfcto1" {{ $item->color_page == 'prfcto1' ? 'selected' : '' }}>Hitam
                         </option>
-                        <option value="prfcto2" {{ $item->color_page == 'prfcto2' ? 'selected' : '' }}>prfcto2
+                        <option value="prfcto2" {{ $item->color_page == 'prfcto2' ? 'selected' : '' }}>Ungu
                         </option>
-                        <option value="prfcto3" {{ $item->color_page == 'prfcto3' ? 'selected' : '' }}>prfcto3
+                        <option value="prfcto3" {{ $item->color_page == 'prfcto3' ? 'selected' : '' }}>Orange
                         </option>
-                        <option value="prfcto4" {{ $item->color_page == 'prfcto4' ? 'selected' : '' }}>prfcto4
+                        <option value="prfcto4" {{ $item->color_page == 'prfcto4' ? 'selected' : '' }}>Silver
                         </option>
                     </select>
                 </div>
@@ -109,30 +111,31 @@
                 <div class="list_form">
                     <span class="sec_label">Warna Button Daftar</span>
                     <select id="btn_daftar_color" name="btn_daftar_color[]" {{ $disabled }}>
-                        <option value="btncto1" {{ $item->btn_daftar_color == 'btncto1' ? 'selected' : '' }}>btncto1
+                        <option value="btncto1" {{ $item->btn_daftar_color == 'btncto1' ? 'selected' : '' }}>Orange
                         </option>
-                        <option value="btncto2" {{ $item->btn_daftar_color == 'btncto2' ? 'selected' : '' }}>btncto2
+                        <option value="btncto2" {{ $item->btn_daftar_color == 'btncto2' ? 'selected' : '' }}>Green
                         </option>
-                        <option value="btncto3" {{ $item->btn_daftar_color == 'btncto3' ? 'selected' : '' }}>btncto3
+                        <option value="btncto3" {{ $item->btn_daftar_color == 'btncto3' ? 'selected' : '' }}>
+                            Orangeungu
                         </option>
-                        <option value="btncto4" {{ $item->btn_daftar_color == 'btncto4' ? 'selected' : '' }}>btncto4
+                        <option value="btncto4" {{ $item->btn_daftar_color == 'btncto4' ? 'selected' : '' }}>Pink
                         </option>
-                        <option value="btncto5" {{ $item->btn_daftar_color == 'btncto5' ? 'selected' : '' }}>btncto5
+                        <option value="btncto5" {{ $item->btn_daftar_color == 'btncto5' ? 'selected' : '' }}>Biru
                         </option>
                     </select>
                 </div>
                 <div class="list_form">
                     <span class="sec_label">Warna Button Daftar</span>
                     <select id="btn_login_color" name="btn_login_color" {{ $disabled }}>
-                        <option value="btncto1" {{ $item->btn_login_color == 'btncto1' ? 'selected' : '' }}>btncto1
+                        <option value="btncto1" {{ $item->btn_login_color == 'btncto1' ? 'selected' : '' }}>Orange
                         </option>
-                        <option value="btncto2" {{ $item->btn_login_color == 'btncto2' ? 'selected' : '' }}>btncto2
+                        <option value="btncto2" {{ $item->btn_login_color == 'btncto2' ? 'selected' : '' }}>Green
                         </option>
-                        <option value="btncto3" {{ $item->btn_login_color == 'btncto3' ? 'selected' : '' }}>btncto3
+                        <option value="btncto3" {{ $item->btn_login_color == 'btncto3' ? 'selected' : '' }}>Orangeungu
                         </option>
-                        <option value="btncto4" {{ $item->btn_login_color == 'btncto4' ? 'selected' : '' }}>btncto4
+                        <option value="btncto4" {{ $item->btn_login_color == 'btncto4' ? 'selected' : '' }}>Pink
                         </option>
-                        <option value="btncto5" {{ $item->btn_login_color == 'btncto5' ? 'selected' : '' }}>btncto5
+                        <option value="btncto5" {{ $item->btn_login_color == 'btncto5' ? 'selected' : '' }}>Biru
                         </option>
                     </select>
                 </div>
@@ -146,6 +149,32 @@
         </div>
     </form>
 </div>
+<div id="nilai-2" class="sec_modal"
+    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+    <div class="componen_modal">
+        <span class="closemodal" onclick="closeModal()">X</span>
+        <div class="body_modal">
+            <h3>Pilih Background</h3>
+            <div class="list_form">
+                <div class="list_form">
+                    <div class="pilihan_gambar">
+                        <img src="{{ asset('img/background/dark1.png') }}" alt="Deskripsi gambar"
+                            onclick="selectImage(this)" style="width: 100px; height: 100px;">
+                        <img src="{{ asset('img/background/dark2.png') }}" alt="Deskripsi gambar"
+                            onclick="selectImage(this)" style="width: 100px; height: 100px;">
+                        <img src="{{ asset('img/background/dark3.png') }}" alt="Deskripsi gambar"
+                            onclick="selectImage(this)" style="width: 100px; height: 100px;">
+                        <img src="{{ asset('img/background/dark4.png') }}" alt="Deskripsi gambar"
+                            onclick="selectImage(this)" style="width: 100px; height: 100px;">
+                        <img src="{{ asset('img/background/dark5.png') }}" alt="Deskripsi gambar"
+                            onclick="selectImage(this)" style="width: 100px; height: 100px;">
+                    </div>
+                    <button type="button" onclick="showSelectedImageLocation()">Tampilkan Lokasi Gambar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     function formatNumber(input) {
@@ -157,6 +186,36 @@
 
         // Set nilai input dengan angka yang sudah diformat
         input.value = formattedValue;
+    }
+
+    function closeModal() {
+        document.getElementById('nilai-2').style.display = 'none';
+    }
+
+    var selectedImage = null;
+
+    function selectImage(imageElement) {
+        if (selectedImage) {
+            selectedImage.style.border = 'none'; // Clear border from the previously selected image
+        }
+
+        if (selectedImage === imageElement) {
+            selectedImage = null; // Deselect the image if it was already selected
+        } else {
+            selectedImage = imageElement;
+            selectedImage.style.border = '5px solid white'; // Apply red border to the selected image
+        }
+    }
+
+    function showSelectedImageLocation() {
+        if (selectedImage) {
+            const imageURL = selectedImage.src;
+            const endpoint = imageURL.substring(imageURL.lastIndexOf('/') + 1);
+            document.getElementById('bg_page').value = endpoint;
+            closeModal(); // Optional: Close the modal after setting the endpoint
+        } else {
+            alert("Pilih sebuah gambar terlebih dahulu.");
+        }
     }
     $(document).ready(function() {
 
@@ -170,7 +229,7 @@
             });
 
             $.ajax({
-                url: "/userrefferal/update",
+                url: "/xx88/userrefferal/update",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -193,11 +252,11 @@
                             showConfirmButton: false,
                             timer: 1500
                         }).then(function() {
-                            $('.aplay_code').load('/userrefferal',
+                            $('.aplay_code').load('/xx88/userrefferal',
                                 function() {
                                     adjustElementSize();
                                     localStorage.setItem('lastPage',
-                                        '/userrefferal');
+                                        '/xx88/userrefferal');
                                 });
                         });
                     }
@@ -217,9 +276,9 @@
         $(document).off('click', '#cancel').on('click', '#cancel', function(event) {
             event.preventDefault();
             var namabo = $(this).data('namabo');
-            $('.aplay_code').load('/userrefferal', function() {
+            $('.aplay_code').load('/xx88/userrefferal', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/userrefferal');
+                localStorage.setItem('lastPage', '/xx88/userrefferal');
             });
         });
     });

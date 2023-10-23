@@ -33,4 +33,15 @@
 .all_act_butt.right {
     justify-content: flex-end;
 }
-
+.group_button_ns {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ns_right {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}

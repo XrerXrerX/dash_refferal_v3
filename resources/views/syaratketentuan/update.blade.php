@@ -48,7 +48,7 @@
             });
 
             $.ajax({
-                url: "/syaratketentuan/update",
+                url: "/xx88/syaratketentuan/update",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -69,11 +69,11 @@
                             showConfirmButton: false,
                             timer: 1500
                         }).then(function() {
-                            $('.aplay_code').load('/syaratketentuan',
+                            $('.aplay_code').load('/xx88/syaratketentuan',
                                 function() {
                                     adjustElementSize();
                                     localStorage.setItem('lastPage',
-                                        '/syaratketentuan');
+                                        '/xx88/syaratketentuan');
                                 });
                         });
                     }
@@ -93,9 +93,9 @@
         $(document).off('click', '#cancel').on('click', '#cancel', function(event) {
             event.preventDefault();
             var namabo = $(this).data('namabo');
-            $('.aplay_code').load('/syaratketentuan', function() {
+            $('.aplay_code').load('/xx88/syaratketentuan', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/syaratketentuan');
+                localStorage.setItem('lastPage', '/xx88/syaratketentuan');
             });
         });
     });

@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Redirect halaman
+
+RewriteRule ^([a-zA-Z0-9]{8})$ shortenGet/$1 [L]
+
+# kalau url tdk valid
+
+ErrorDocument 404 https://www.lotto21group.com/

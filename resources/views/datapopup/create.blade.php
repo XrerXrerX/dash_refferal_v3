@@ -54,7 +54,7 @@
             formData.append('_token', csrfToken);
 
             $.ajax({
-                url: "/datapopup/store",
+                url: "/xx88/datapopup/store",
                 method: "POST",
                 data: formData,
                 processData: false,
@@ -80,11 +80,11 @@
                         }).then(function() {
 
                             // Lakukan perubahan halaman atau tindakan lainnya setelah contact berhasil dikirim
-                            $('.aplay_code').load('/datapopup',
+                            $('.aplay_code').load('/xx88/datapopup',
                                 function() {
                                     adjustElementSize();
                                     localStorage.setItem('lastPage',
-                                        '/datapopup');
+                                        '/xx88/datapopup');
                                 });
                         });
                     }
@@ -105,9 +105,9 @@
         $(document).off('click', '#cancel').on('click', '#cancel', function(event) {
             event.preventDefault();
             var namabo = $(this).data('namabo');
-            $('.aplay_code').load('/datapopup', function() {
+            $('.aplay_code').load('/xx88/datapopup', function() {
                 adjustElementSize();
-                localStorage.setItem('lastPage', '/datapopup');
+                localStorage.setItem('lastPage', '/xx88/datapopup');
             });
         });
 
