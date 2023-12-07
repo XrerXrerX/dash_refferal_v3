@@ -94,8 +94,8 @@ class UserRefferalController extends Controller
                 if ($request->hasFile('gambar_profil')) {
                     $gambar_profil = $request->file('gambar_profil');
                     $filename = time() . '_' . Str::random(10) . '.' . $gambar_profil->getClientOriginalExtension();
-                    $gambar_profil->move('images/user_refferal_img', $filename);
-                    $data["gambar_profil"] = 'images/user_refferal_img/' . $filename;
+                    $gambar_profil->move('xx88/images/user_refferal_img', $filename);
+                    $data["gambar_profil"] = 'xx88/images/user_refferal_img/' . $filename;
                 }
                 $data["password"] = md5($data["password"]);
                 $data["login_token"] = "123456";
@@ -288,8 +288,8 @@ class UserRefferalController extends Controller
 
                         $gambar_profil = $request->file('gambar_profil')[0];
                         $filename = time() . '_' . Str::random(10) . '.' . $gambar_profil->getClientOriginalExtension();
-                        $gambar_profil->move('images/user_refferal_img', $filename);
-                        $item->gambar_profil = 'images/user_refferal_img/' . $filename;
+                        $gambar_profil->move('xx88/images/user_refferal_img', $filename);
+                        $item->gambar_profil = 'xx88/images/user_refferal_img/' . $filename;
                     }
                     $item->website = $items["website"];
                     $item->namapage = $items["namapage"];

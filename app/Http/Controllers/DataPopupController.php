@@ -203,8 +203,8 @@ class DataPopupController extends Controller
                         }
                         $gambar_event = $request->file('gambar_event')[$index];
                         $filename = time() . '_' . Str::random(10) . '.' . $gambar_event->getClientOriginalExtension();
-                        $gambar_event->move('images/Datapopup_img', $filename);
-                        $result->gambar_event = 'images/Datapopup_img/' . $filename;
+                        $gambar_event->move('xx88/images/Datapopup_img', $filename);
+                        $result->gambar_event = 'xx88/images/Datapopup_img/' . $filename;
                     }
 
                     $result->switch_desk = isset($request->switch_desk[$index]) && $request->switch_desk[$index] != '0' ? '1' : '0';

@@ -152,7 +152,7 @@
                                 <div class="list_data_laporan">
                                     <p class="cc_plus ex" style="color: rgba(var(--white-color)) !important">
                                         <span>Rp.</span> <span class="data_nonminal"
-                                            id="dt_gajibulan"><?php echo $row_gaji[0]->gaji_bulan; ?><span>
+                                            id="dt_gajibulan"><?php echo isset($row_gaji[0]->gaji_bulan) ? $row_gaji[0]->gaji_bulan : 0; ?><span>
                                     </p>
                                 </div>
                             </div>
@@ -280,8 +280,8 @@
                                             ?>
                                             <tr>
                                                 <td><?= $nolw ?></td>
-                                                <td class="inn_userid"><?= $low2000['userid_downline'] ?></td>
-                                                <td><?= $low2000['bonus'] ?></td>
+                                                <td class="inn_userid"><?= $low2000->userid_downline ?></td>
+                                                <td><?= $low2000->bonus ?></td>
                                             </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -350,8 +350,8 @@
                                             ?>
                                             <tr>
                                                 <td><?= $nobld ?></td>
-                                                <td class="inn_userid"><?= $belumdepo['userid_downline'] ?></td>
-                                                <td><?= $belumdepo['status'] ?></td>
+                                                <td class="inn_userid"><?= $belumdepo->userid_downline ?></td>
+                                                <td><?= $belumdepo->status ?></td>
                                             </tr>
                                             <?php endforeach; ?>
                                         </tbody>

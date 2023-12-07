@@ -73,6 +73,6 @@ class Kernel extends HttpKernel
         'spinner' =>  \App\Http\Middleware\spinner::class,
         'apk2' => \App\Http\Middleware\ApkMiddleware::class,
         'allowedIP' => \App\Http\Middleware\CheckAllowedIPMiddleware::class,
-
+        'checkUsernamelogin' => \App\Http\Middleware\CheckUsernamelogin::class,
     ];
 }

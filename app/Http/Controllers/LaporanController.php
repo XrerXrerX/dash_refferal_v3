@@ -114,6 +114,11 @@ class LaporanController extends Controller
 
     function Querysql($search_bulan, $search_tahun, $search_website)
     {
+        if ($search_bulan == '1') {
+            $bulankasbon = '12';
+        } else {
+            $bulankasbon = $search_bulan - 1;
+        }
         $query = "SELECT
         A.userid_refferal,
         CASE '$search_bulan' 
@@ -232,7 +237,7 @@ class LaporanController extends Controller
             YEAR(A.tanggal) AS tahun
         FROM data_kasbon A
         INNER JOIN users_refferal B ON A.userid = B.userid_refferal AND A.website = B.website
-        WHERE MONTH(A.tanggal) = '$search_bulan' AND YEAR(A.tanggal) = '$search_tahun' AND  (
+        WHERE MONTH(A.tanggal) = '$bulankasbon' AND YEAR(A.tanggal) = '$search_tahun' AND  (
         CASE 
             WHEN '$search_website' = '' THEN 1
             ELSE B.website = '$search_website'

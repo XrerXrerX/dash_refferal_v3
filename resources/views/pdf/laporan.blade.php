@@ -18,7 +18,7 @@
             border: 1px solid black;
             /* Penambahan border 1 */
             color: white;
-            font-size: 13px;
+            font-size: 9px;
         }
 
         /* CSS untuk setiap baris (tr) dalam body */
@@ -40,7 +40,7 @@
         table td {
             padding: 5px;
             border: 1px solid black;
-            font-size: 11px;
+            font-size: 7px;
 
         }
 
@@ -48,7 +48,7 @@
         .total-row {
             font-weight: bold;
             background-color: red;
-            font-size: 13px;
+            font-size: 9px;
             color: white;
         }
 
@@ -106,10 +106,14 @@
         </thead>
         <tbody>
             @php
-                $totalGaji = 0; // Inisialisasi nilai awal
-                $totalPotongan = 0; // Inisialisasi nilai awal
-                $totalCasbon = 0; // Inisialisasi nilai awal
-                $totalKeseluruhan = 0; // Inisialisasi nilai awal
+                $totalGaji = 0;
+                $totalPotongan = 0;
+                $totalCasbon = 0;
+                $totalKeseluruhan = 0;
+                $totalDownline = 0;
+                $totalAllDownline = 0;
+                $totalNewDepo = 0;
+                $totalNewMember = 0;
             @endphp
             @foreach ($data as $index => $d)
                 <tr>
@@ -141,6 +145,10 @@
                     </td>
                 </tr>
                 @php
+                    $totalDownline += $d->downline;
+                    $totalAllDownline += $d->totaldownline;
+                    $totalNewDepo += $d->total_newdepo;
+                    $totalNewMember += $d->total_newmember;
                     $totalGaji += $d->gaji_refferal; // Penambahan nilai gaji pada setiap iterasi
                     $totalPotongan += $d->total_potongan; // Penambahan nilai potongan pada
                     $totalCasbon += $d->total_casbon; // Penambahan nilai casbon pada setiap
@@ -149,7 +157,11 @@
             @endforeach
             <!-- Baris total -->
             <tr class="total-row">
-                <td colspan="8" align="right">Total Keseluruhan</td>
+                <td colspan="4" align="right">Total Keseluruhan</td>
+                <td class="col-gaji align-right">{{ $totalDownline }}</td>
+                <td class="col-gaji align-right">{{ $totalAllDownline }}</td>
+                <td class="col-gaji align-right">{{ $totalNewDepo }}</td>
+                <td class="col-gaji align-right"> {{ $totalNewMember }} </td>
                 <td class="col-gaji align-right">Rp. {{ number_format($totalGaji, 0, ',', '.') }}</td>
                 <td class="col-potongan align-right">Rp. {{ number_format($totalPotongan, 0, ',', '.') }}</td>
                 <td class="col-casbon align-right">Rp. {{ number_format($totalCasbon, 0, ',', '.') }}</td>

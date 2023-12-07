@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="icon" href="front/img/favicon.ico">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>L21 | Halaman Mitra</title>
     <link rel="stylesheet" href="front/style.css">
@@ -34,7 +35,7 @@
                                     <path d="M16 5l3 3" />
                                 </svg>
                             </div>
-                            <img class="pp_penc" src="<?php echo $row[0]->gambar_profil; ?>" alt="">
+                            <img class="pp_penc" src="/xx88/<?php echo $row[0]->gambar_profil; ?>" alt="">
                             <div class="txtheadreff">
                                 <h3><?php echo $row[0]->userid_refferal; ?></h3>
                                 <p>MITRA PROFESIONAL

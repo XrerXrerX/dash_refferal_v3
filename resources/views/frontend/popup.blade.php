@@ -2,7 +2,7 @@
     <div class="bw_utama_popup">
         <p id="close_popup">X</p>
         <h3><?php echo $row[0]->judul_event; ?></h3>
-        <img src="/<?php echo $row[0]->gambar_event; ?>" alt="">
+        <img src="/xx88/<?php echo $row[0]->gambar_event; ?>" alt="">
         <div class="desk_popup">
             <p><?php echo $row[0]->desk_event; ?></p>
         </div>

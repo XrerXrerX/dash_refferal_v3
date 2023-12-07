@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 
 class FrontendController extends Controller
@@ -15,6 +17,7 @@ class FrontendController extends Controller
 
     public function index()
     {
+        $data = getUrlApi();
         return view('frontend.index', [
             'title' => 'Refferal L21'
         ]);
@@ -27,12 +30,16 @@ class FrontendController extends Controller
 
     public function pemenang()
     {
-        return DB::SELECT("SELECT pr.*, ur.gambar_profil FROM pencari_refferal pr INNER JOIN users_refferal ur ON pr.userid = ur.userid_refferal");
+        return DB::SELECT("
+        SELECT pr.*, ur.gambar_profil FROM pencari_refferal pr 
+        INNER JOIN users_refferal ur ON pr.userid = ur.userid_refferal
+        ORDER BY pr.downline_aktif DESC
+        ");
     }
 
     public function footer()
     {
-        $api_url = 'https://l4soyk0.com/api/kontakl21';
+        $api_url = getUrlApi() . '/api/kontakl21';
         $ch = curl_init($api_url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer youk1llmyfvcking3x'));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -43,7 +50,7 @@ class FrontendController extends Controller
             die("Gagal mendapatkan data kontak dari API.");
         }
 
-        $api_website = 'https://l4soyk0.com/api/datawebsite';
+        $api_website = getUrlApi() . '/api/datawebsite';
         $ch_website = curl_init($api_website);
         curl_setopt($ch_website, CURLOPT_HTTPHEADER, array('Authorization: Bearer youk1llmyfvcking3x'));
         curl_setopt($ch_website, CURLOPT_RETURNTRANSFER, true);
@@ -100,6 +107,9 @@ class FrontendController extends Controller
 
     public function halaman_mitra()
     {
+        if (!session()->has('usernamelogin')) {
+            return redirect('/');
+        }
         $username = session('usernamelogin');
 
         $row = DB::SELECT("SELECT * FROM users_refferal WHERE username = '$username'");
@@ -135,7 +145,7 @@ class FrontendController extends Controller
         $count_downline_sudahdepo = count($row_downline_sudahdepo);
 
 
-        $api_url = 'https://l4soyk0.com/api/datawebsite';
+        $api_url = getUrlApi() . '/api/datawebsite';
 
         $ch = curl_init($api_url);
         $headers = ['Authorization: Bearer youk1llmyfvcking3x'];
@@ -201,6 +211,9 @@ class FrontendController extends Controller
 
     function halaman_laporan()
     {
+        if (!session()->has('usernamelogin')) {
+            return redirect('/');
+        }
         $username = session('usernamelogin');
 
         $row = DB::SELECT("SELECT * FROM users_refferal WHERE username = '$username'");
@@ -233,6 +246,7 @@ class FrontendController extends Controller
             JOIN users_refferal AS ur ON pr.userid = ur.userid_refferal
             WHERE ur.username = '$username' AND pr.bonus > 2000";
         }
+
 
         $row_downline_hig2000 = DB::SELECT($query_downline_hig2000);
         $count_downline_hig2000 = count($row_downline_hig2000);
@@ -274,10 +288,10 @@ class FrontendController extends Controller
         $sql_gaji = "SELECT gaji_bulan FROM gaji_refferal WHERE member_aktif <= $count_downline_hig2000 ORDER BY member_aktif DESC LIMIT 1";
         $row_gaji = DB::SELECT($sql_gaji);
 
-        if ($row_gaji[0]->gaji_bulan > 0) {
+        if (count($row_gaji) > 0) {
             $gaji_bulan = $row_gaji[0]->gaji_bulan;
         } else {
-            $sql_lowest = 'SELECT MIN(CAST(gaji_bulan AS double)) AS min_gaji FROM gaji_refferal;';
+            $sql_lowest = 'SELECT MIN(CAST(gaji_bulan AS DECIMAL)) AS min_gaji FROM gaji_refferal;';
             $row_lowest = DB::SELECT($sql_lowest);
             $gaji_bulan = $row_lowest[0]->min_gaji;
         }
@@ -310,6 +324,10 @@ class FrontendController extends Controller
 
     public function halaman_shortener()
     {
+        if (!session()->has('usernamelogin')) {
+            return redirect('/');
+        }
+
         $username = session('usernamelogin');
 
         $sql = "SELECT * FROM users_refferal WHERE username = '$username'";
@@ -329,7 +347,7 @@ class FrontendController extends Controller
 
     public function logout(Request $request)
     {
-        $request->session()->forget('variableName');
+        $request->session()->forget('usernamelogin');
         return redirect('/')->with('success', 'Sesi berhasil dihapus.');
     }
 
@@ -371,7 +389,7 @@ class FrontendController extends Controller
                 DB::insert($query, [$url, $shortenedUrl, $username]);
             }
 
-            return "majul21.com/s/" . $shortenedUrl;
+            return "promol21.com/s/" . $shortenedUrl;
         }
     }
 
@@ -391,6 +409,212 @@ class FrontendController extends Controller
             } else {
                 return "Error: Shortened URL not found!";
             }
+        }
+    }
+
+    public function update_password(Request $request)
+    {
+        try {
+            $newPassword = $request->newPassword;
+            $username = session('usernamelogin');
+
+            $result = DB::update("UPDATE users_refferal SET password = MD5(?) WHERE username = ?", [$newPassword, $username]);
+
+            if ($result > 0) {
+                return response()->json(['success' => ['Password berhasil diupdate.']]);
+            } else {
+                return response()->json(['errors' => ['User referral tidak ditemukan.']]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['errors' => ['Terjadi kesalahan saat menyimpan data.']]);
+        }
+    }
+
+    public function update_page(Request $request)
+    {
+        try {
+            $newPageName = $request->newPageName;
+            $username = session('usernamelogin');
+
+            $checkResult = DB::table('users_refferal')
+                ->where('namapage', $newPageName)
+                ->where('username', '!=', $username)
+                ->get();
+
+            if ($checkResult->count() > 0) {
+                return "duplicate";
+            } else {
+                $result = DB::table('users_refferal')
+                    ->where('username', $username)
+                    ->update(['namapage' => $newPageName]);
+
+                if ($result) {
+                    return "success";
+                } else {
+                    return "error";
+                }
+            }
+        } catch (\Exception $e) {
+            return "error";
+        }
+    }
+
+    public function update_wa(Request $request)
+    {
+        $newWa = $request->newWa;
+        $username = session('usernamelogin');
+
+        $result = DB::update("UPDATE users_refferal SET whatsapp = ? WHERE username = ?", [$newWa, $username]);
+
+        if ($result) {
+            return "success";
+        } else {
+            return "error";
+        }
+    }
+
+    public function update_fb(Request $request)
+    {
+        $newFb = $request->newFb;
+        $username = session('usernamelogin');
+
+        $result = DB::update("UPDATE users_refferal SET facebook = ? WHERE username = ?", [$newFb, $username]);
+
+        if ($result) {
+            echo "success";
+        } else {
+            echo "error";
+        }
+    }
+
+    public function update_background(Request $request)
+    {
+        $username = session('usernamelogin');
+
+        if (isset($request->bg_page)) {
+            // $data = trim($request->bg_page);
+            // $data = stripslashes($data);
+            // $data = htmlspecialchars($data);
+            $selectedImage = $request->bg_page;
+            $result = DB::update("UPDATE users_refferal SET bg_page = ? WHERE username = ?", [$selectedImage, $username]);
+
+            if ($result) {
+                return "success";
+            } else {
+                return "error";
+            }
+        } else {
+            return "error";
+        }
+    }
+
+    public function update_colorpage(Request $request)
+    {
+        $username = session('usernamelogin');
+
+        if (request()->has('color_page')) {
+            $selectedImage = $request->color_page;
+
+            $result = DB::update("UPDATE users_refferal SET color_page = ? WHERE username = ?", [$selectedImage, $username]);
+
+            if ($result) {
+                return "success";
+            } else {
+                return "error";
+            }
+        } else {
+            return "error";
+        }
+    }
+    public function update_textpage(Request $request)
+    {
+        $username = session('usernamelogin');
+        $newPageName = $request->newPageName;
+
+        $result = DB::update("UPDATE users_refferal SET text_page = ? WHERE username = ?", [$newPageName, $username]);
+
+        if ($result) {
+            return "success";
+        } else {
+            return "error";
+        }
+    }
+
+    public function update_daftar_color(Request $request)
+    {
+        $username = session('usernamelogin');
+
+        if (isset($request->btn_daftar_color)) {
+            $selectedImage = $request->btn_daftar_color;
+            $result = DB::update("UPDATE users_refferal SET btn_daftar_color = ? WHERE username = ?", [$selectedImage, $username]);
+
+            if ($result) {
+                return "success";
+            } else {
+                return "error";
+            }
+        } else {
+            return "error";
+        }
+    }
+
+    public function update_login_color(Request $request)
+    {
+        $username = session('usernamelogin');
+
+        if (isset($request->btn_login_color)) {
+            $selectedImage = $request->btn_login_color;
+
+            $result = DB::update("UPDATE users_refferal SET btn_login_color = ? WHERE username = ?", [$selectedImage, $username]);
+
+            if ($result) {
+                return "success";
+            } else {
+                return "error";
+            }
+        } else {
+            return "error";
+        }
+    }
+
+    public function update_profile_image(Request $request)
+    {
+        $username = $request->session()->get('usernamelogin'); // gunakan objek request untuk mendapatkan data sesi
+
+        if ($request->hasFile('gambar_profil') && $request->file('gambar_profil')->isValid()) {
+            $image = $request->file('gambar_profil');
+            $imageName = $image->getClientOriginalName();
+
+            $userReferral = DB::table('users_refferal')->where('username', $username)->first();
+
+            if ($userReferral) {
+                $oldImage = "xx88/images/user_refferal_img/" . $userReferral->gambar_profil;
+
+                if (file_exists($oldImage)) {
+                    unlink($oldImage);
+                }
+
+                $timestamp = time();
+                $uniqueFilename = "profile_" . $timestamp . "_" . $imageName;
+                // $targetPath = 'xx88/images/user_refferal_img/' . $uniqueFilename;
+
+                try {
+                    $image->move(('xx88/images/user_refferal_img'), $uniqueFilename);
+
+                    DB::table('users_refferal')
+                        ->where('username', $username)
+                        ->update(['gambar_profil' => 'images/user_refferal_img/' . $uniqueFilename]);
+
+                    return "success";
+                } catch (\Exception $e) {
+                    Log::error('Gagal menyimpan file: ' . $uniqueFilename);
+                    return $e->getMessage();
+                }
+            } else {
+                return "error2";
+            }
+        } else {
+            return "error3";
         }
     }
 }

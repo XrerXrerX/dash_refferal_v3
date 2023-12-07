@@ -3,7 +3,7 @@
         <a class="pencari_logo" href="halaman_mitra"><img src="front/img/l21-logo.png" alt=""></a>
         <div class="menukanan">
             <p class="showmenu"><?php echo $row[0]->username; ?> ▼</p>
-            <img src="<?php echo $row[0]->gambar_profil; ?>" alt="">
+            <img src="/xx88/<?php echo $row[0]->gambar_profil; ?>" alt="">
             <div class="menuprofile">
                 <div class="listmenuprofile">
                     <a class="kontakadm" href="" target="_blank">Admin</a>

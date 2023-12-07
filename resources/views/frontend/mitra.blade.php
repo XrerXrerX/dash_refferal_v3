@@ -26,7 +26,7 @@
                     <p class="textpencreff"></p>
                 </div>
                 <div class="buttgroupcto">
-                    <a href="" target="_blank" id="peclinkbutton">
+                    <a href="" id="peclinkbutton">
                         <div class="listbtncto" id="iffoanim">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus"
                                 viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round"
@@ -40,7 +40,7 @@
                             <button type="button" data-button-bg="" id="daftarcto">DAFTAR</button>
                         </div>
                     </a>
-                    <a href="" target="_blank" id="peclinkdaftar">
+                    <a href="" id="peclinkdaftar">
                         <div class="listbtncto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-login"
                                 viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round"
@@ -53,7 +53,7 @@
                             <button type="button" data-button-bg="" id="logincto">LOGIN</button>
                         </div>
                     </a>
-                    <a href="" target="_blank" id="peclinkwa">
+                    <a href="" id="peclinkwa">
                         <div class="listbtncto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-whatsapp"
                                 viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round"
@@ -66,7 +66,7 @@
                             <button type="button" id="wacto">WHATSAPP</button>
                         </div>
                     </a>
-                    <a href="" target="_blank" id="peclinkfb">
+                    <a href="" id="peclinkfb">
                         <div class="listbtncto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook"
                                 viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round"

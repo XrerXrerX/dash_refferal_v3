@@ -4,10 +4,10 @@
 @php
     $search_bulan = request()->get('search_bulan');
     $search_bulan = $search_bulan ?? date('n');
-    
+
     $search_tahun = request()->get('search_tahun');
     $search_tahun = $search_tahun ?? date('Y');
-    
+
     $search_website = request()->get('search_website');
     $search_website = $search_website ?? '';
 @endphp
@@ -69,6 +69,10 @@
                 $totalPotongan = 0; // Inisialisasi nilai awal
                 $totalCasbon = 0; // Inisialisasi nilai awal
                 $totalKeseluruhan = 0; // Inisialisasi nilai awal
+                $totalDownline = 0;
+                $totalAllDownline = 0;
+                $totalNewDepo = 0;
+                $totalNewMember = 0;
             @endphp
             @foreach ($data as $index => $d)
                 <tr>
@@ -96,6 +100,10 @@
                     </td>
 
                     @php
+                        $totalDownline += $d->downline;
+                        $totalAllDownline += $d->totaldownline;
+                        $totalNewDepo += $d->total_newdepo;
+                        $totalNewMember += $d->total_newmember;
                         $totalGaji += $d->gaji_refferal; // Penambahan nilai gaji pada setiap iterasi
                         $totalPotongan += $d->total_potongan; // Penambahan nilai potongan pada setiap iterasi // Penambahan nilai potongan pada
                         $totalCasbon += $d->total_casbon; // Penambahan nilai casbon pada setiap
@@ -104,7 +112,11 @@
                 </tr>
             @endforeach
             <tr class="total-row">
-                <td colspan="8" align="right">Total Keseluruhan</td>
+                <td colspan="4" align="right">Total Keseluruhan</td>
+                <td class="col-gaji align-right">{{ $totalDownline }}</td>
+                <td class="col-gaji align-right">{{ $totalAllDownline }}</td>
+                <td class="col-gaji align-right">{{ $totalNewDepo }}</td>
+                <td class="col-gaji align-right"> {{ $totalNewMember }} </td>
                 <td class="col-gaji align-right">Rp. {{ number_format($totalGaji, 0, ',', '.') }}</td>
                 <td class="col-potongan align-right">Rp. {{ number_format($totalPotongan, 0, ',', '.') }}</td>
                 <td class="col-casbon align-right">Rp. {{ number_format($totalCasbon, 0, ',', '.') }}</td>

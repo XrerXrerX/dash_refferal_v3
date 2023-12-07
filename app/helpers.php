@@ -32,13 +32,30 @@ function getDataBo3()
     return ApkBo::orderBy('id', 'ASC')->first();
 }
 
+function getUrlApi()
+{
+    $response = Http::get('https://lotto21top.com/api/apil21');
+
+    if ($response->successful()) { // Perbaiki penulisan dari "f" menjadi "if"
+
+        $url = $response->json()[0]["url"];
+        return $url;
+    } else {
+        // dd($response->status());
+        $errorMessage = "Gagal mendapatkan data. Kode status: " . $response->status();
+        return $errorMessage;
+    }
+}
+
 function getDataWebsite()
 {
+    $url = getUrlApi() . '/api/datawebsite';
+
     $bearerToken = 'youk1llmyfvcking3x';
 
     $response = Http::withHeaders([
         'Authorization' => 'Bearer ' . $bearerToken,
-    ])->get('https://l4soyk0.com/api/datawebsite');
+    ])->get($url);
 
     if ($response->successful()) {
         $data = $response->json()["data"];
